@@ -1,0 +1,117 @@
+---
+title: "Building a Voice Agent from Scratch"
+date: "2025-09-10"
+author: "Sami Ullah"
+excerpt: "A practical walkthrough of the architecture behind production voice agents — from speech-to-text to LLM reasoning to text-to-speech."
+tags: ["Voice AI", "LLM", "Engineering", "Tutorial"]
+---
+
+# Building a Voice Agent from Scratch
+
+Voice agents are one of the most powerful — and underutilised — AI applications in business today. A well-built voice agent can handle customer calls, qualify leads, answer FAQs, and escalate complex issues, all without a human on the line.
+
+Here's how we build them at ConnectXeo.
+
+## The Core Architecture
+
+A production voice agent has five components:
+
+```
+Caller  STT  LLM + Memory  TTS  Caller
+                  |
+        Tool Calls: CRM, Calendar, KB
+```
+
+1. **STT (Speech-to-Text)** — Converts audio to text in real-time
+2. **LLM** — Reasons over the transcript, decides what to say or do
+3. **Tool Layer** — Lets the LLM take actions (search KB, book a call, update CRM)
+4. **Memory** — Maintains conversation context across turns
+5. **TTS (Text-to-Speech)** — Converts the agent's response back to natural speech
+
+## Choosing Your Stack
+
+### STT Options
+
+- **Deepgram Nova-2** — Best accuracy + lowest latency for production (we use this)
+- **OpenAI Whisper** — Great for batch transcription; too slow for real-time
+- **AssemblyAI** — Good for async; decent real-time support
+
+### LLM Options
+
+- **GPT-4o** — Low latency, strong instruction-following, excellent for customer-facing agents
+- **Claude 3.5 Sonnet** — Excellent reasoning, great for complex multi-turn conversations
+- **Llama 3.3 70B** — Open-source, self-hostable for regulated industries
+
+### TTS Options
+
+- **ElevenLabs** — Best voice quality, wide selection of cloned/synthetic voices
+- **Cartesia Sonic** — Ultra-low latency, production-ready
+- **OpenAI TTS-1** — Fast and affordable, good for most use cases
+
+## The Conversation Loop
+
+Here's a simplified version of the real-time loop:
+
+```python
+async def handle_call(websocket):
+    conversation = []
+
+    async for audio_chunk in websocket:
+        # 1. Transcribe in real-time
+        transcript = await stt.transcribe(audio_chunk)
+        if not transcript.is_final:
+            continue
+
+        # 2. Add to conversation history
+        conversation.append({"role": "user", "content": transcript.text})
+
+        # 3. Reason with the LLM
+        response = await llm.complete(
+            messages=SYSTEM_PROMPT + conversation,
+            tools=AVAILABLE_TOOLS
+        )
+
+        # 4. Execute tool calls if any
+        if response.tool_calls:
+            tool_results = await execute_tools(response.tool_calls)
+            conversation.append(tool_results)
+            response = await llm.complete(messages=SYSTEM_PROMPT + conversation)
+
+        # 5. Synthesise and stream audio back
+        audio = await tts.synthesize(response.text)
+        await websocket.send(audio)
+
+        # 6. Update history
+        conversation.append({"role": "assistant", "content": response.text})
+```
+
+## Key Engineering Challenges
+
+### Latency
+
+The biggest challenge in voice agents is end-to-end latency. Callers become impatient at >1.5 seconds of silence. You need to:
+
+- Stream STT and start LLM inference before transcription is final
+- Use "filler" audio ("Let me check that for you...") while tools execute
+- Choose TTS providers with streaming support
+
+### Interruption Handling
+
+Real conversations involve interruptions. Your agent must detect when the caller starts speaking mid-response and gracefully stop playback.
+
+### Context Management
+
+Long calls can exceed LLM context windows. Use a sliding window or summarisation strategy to keep conversation memory manageable.
+
+## Production Considerations
+
+- **Telephony**: Use Twilio or Vonage for PSTN integration
+- **Monitoring**: Log every call, transcription, and tool call for debugging
+- **Fallback**: Always have a human handoff path — for regulatory compliance and edge cases
+- **Testing**: Build a call simulator that runs scripted scenarios against your agent
+
+---
+
+Building a voice agent that works in production is hard. Getting it to handle the edge cases, remain low-latency, and actually help your customers — that's where experience matters.
+
+At **ConnectXeo**, we've shipped voice agents for sales, support, and scheduling. [Talk to us](/contact) about what's possible for your use case.
