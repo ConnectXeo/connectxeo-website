@@ -106,3 +106,82 @@ h3 {
 .card-shadow {
   box-shadow: var(--shadow-card);
 }
+
+/* ── Hero particle field ─────────────────────────────────────
+   Generated via CSS: 40 pseudo-random white dots using
+   box-shadow stacking. Pure CSS — no JS, no canvas.
+   ─────────────────────────────────────────────────────────── */
+@keyframes particle-float {
+  0%   { transform: translateY(0px) translateX(0px); opacity: 0.25; }
+  33%  { opacity: 0.35; }
+  66%  { opacity: 0.20; }
+  100% { transform: translateY(-120px) translateX(20px); opacity: 0; }
+}
+
+@keyframes particle-float-b {
+  0%   { transform: translateY(0px) translateX(0px); opacity: 0.20; }
+  50%  { opacity: 0.30; }
+  100% { transform: translateY(-100px) translateX(-15px); opacity: 0; }
+}
+
+/* Each particle layer is a tiny dot using box-shadow spread to multiply */
+.particle-field::before,
+.particle-field::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  width: 1px;
+  height: 1px;
+  border-radius: 50%;
+  background: transparent;
+}
+
+.particle-field::before {
+  animation: particle-float 12s linear infinite;
+  box-shadow:
+    120px  80px 0 0 rgba(255,255,255,0.28),
+    240px 180px 0 0 rgba(255,255,255,0.22),
+    360px  40px 0 0 rgba(255,255,255,0.30),
+    480px 260px 0 0 rgba(255,255,255,0.18),
+    600px 140px 0 0 rgba(255,255,255,0.25),
+    720px 320px 0 0 rgba(255,255,255,0.20),
+    840px  60px 0 0 rgba(255,255,255,0.28),
+    960px 200px 0 0 rgba(255,255,255,0.22),
+   1080px 380px 0 0 rgba(255,255,255,0.18),
+   1200px 120px 0 0 rgba(255,255,255,0.25),
+    180px 450px 0 0 rgba(255,255,255,0.20),
+    300px 300px 0 0 rgba(255,255,255,0.18),
+    540px 500px 0 0 rgba(255,255,255,0.22),
+    660px  30px 0 0 rgba(255,255,255,0.28),
+    780px 420px 0 0 rgba(255,255,255,0.20),
+    900px 100px 0 0 rgba(255,255,255,0.25),
+   1020px 350px 0 0 rgba(255,255,255,0.18),
+   1140px 230px 0 0 rgba(255,255,255,0.22),
+     60px 550px 0 0 rgba(255,255,255,0.20),
+    420px  90px 0 0 rgba(255,255,255,0.28);
+}
+
+.particle-field::after {
+  animation: particle-float-b 16s linear infinite 3s;
+  box-shadow:
+    150px 350px 0 0 rgba(255,255,255,0.22),
+    310px  70px 0 0 rgba(255,255,255,0.28),
+    470px 490px 0 0 rgba(255,255,255,0.18),
+    630px 220px 0 0 rgba(255,255,255,0.25),
+    790px 160px 0 0 rgba(255,255,255,0.20),
+    950px 430px 0 0 rgba(255,255,255,0.22),
+   1110px  50px 0 0 rgba(255,255,255,0.28),
+     90px 150px 0 0 rgba(255,255,255,0.25),
+    250px 540px 0 0 rgba(255,255,255,0.18),
+    410px 290px 0 0 rgba(255,255,255,0.22),
+    570px  20px 0 0 rgba(255,255,255,0.30),
+    730px 370px 0 0 rgba(255,255,255,0.20),
+    890px 480px 0 0 rgba(255,255,255,0.18),
+   1050px 130px 0 0 rgba(255,255,255,0.25),
+   1170px 310px 0 0 rgba(255,255,255,0.22),
+    200px 410px 0 0 rgba(255,255,255,0.28),
+    380px  10px 0 0 rgba(255,255,255,0.20),
+    510px 250px 0 0 rgba(255,255,255,0.25),
+    680px 580px 0 0 rgba(255,255,255,0.18),
+    820px  80px 0 0 rgba(255,255,255,0.22);
+}
