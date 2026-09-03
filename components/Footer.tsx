@@ -142,10 +142,18 @@ export default function Footer() {
         </div>
 
         {/* Divider + copyright */}
-        <div className="mt-12 border-t border-border pt-6 text-center">
+        <div className="mt-12 border-t border-border pt-6 flex flex-col sm:flex-row items-center justify-between gap-3">
           <p className="text-xs text-muted">
             &copy; {currentYear} ConnectXeo. All rights reserved.
           </p>
+          <div className="flex items-center gap-4">
+            <Link href="/privacy" className="text-xs text-muted hover:text-foreground transition-colors">
+              Privacy Policy
+            </Link>
+            <Link href="/terms" className="text-xs text-muted hover:text-foreground transition-colors">
+              Terms of Service
+            </Link>
+          </div>
         </div>
       </div>
     </footer>
