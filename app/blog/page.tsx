@@ -7,6 +7,14 @@ import Badge from "@/components/ui/Badge";
 export const metadata: Metadata = {
   title: "Blog — ConnectXeo",
   description: "Insights on AI/ML, automation, voice agents, and cloud solutions from the ConnectXeo team.",
+  alternates: { canonical: "https://www.connectxeo.com/blog" },
+  openGraph: {
+    title: "Blog — ConnectXeo",
+    description: "Insights on AI/ML, automation, voice agents, and cloud solutions from the ConnectXeo team.",
+    url: "https://www.connectxeo.com/blog",
+    type: "website",
+    siteName: "ConnectXeo",
+  },
 };
 
 function formatDate(dateStr: string) {
