@@ -20,6 +20,21 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: `${post.title} — ConnectXeo Blog`,
     description: post.excerpt,
+    alternates: { canonical: `https://www.connectxeo.com/blog/${slug}` },
+    openGraph: {
+      title: `${post.title} — ConnectXeo Blog`,
+      description: post.excerpt,
+      url: `https://www.connectxeo.com/blog/${slug}`,
+      type: "article",
+      siteName: "ConnectXeo",
+      images: [{ url: "/og-image.png", width: 1200, height: 630, alt: post.title }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${post.title} — ConnectXeo Blog`,
+      description: post.excerpt,
+      images: ["/og-image.png"],
+    },
   };
 }
 
