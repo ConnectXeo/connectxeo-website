@@ -1,16 +1,20 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import { Geist_Mono } from "next/font/google";
 import { Providers } from "./providers";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import "./globals.css";
 
-// Inter from next/font/google automatically loads the variable version
-// and exposes it as --font-inter CSS custom property
 const inter = Inter({
   variable: "--font-inter",
   subsets: ["latin"],
   display: "swap",
+});
+
+const geistMono = Geist_Mono({
+  variable: "--font-geist-mono",
+  subsets: ["latin"],
 });
 
 export const metadata: Metadata = {
@@ -40,10 +44,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html
       lang="en"
-      className={`${inter.variable} dark h-full antialiased`}
+      className={`${inter.variable} ${geistMono.variable} h-full antialiased`}
       suppressHydrationWarning
     >
-      <body className="min-h-full flex flex-col bg-background text-foreground font-sans">
+      <body className="min-h-full flex flex-col bg-background text-foreground font-[family-name:var(--font-inter)]">
         <Providers>
           <Navbar />
           <main className="flex-1">{children}</main>

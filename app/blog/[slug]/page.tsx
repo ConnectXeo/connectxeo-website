@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import { getAllSlugs, getPostBySlug } from "@/lib/blog";
 import { markdownToHtml } from "@/lib/markdown";
+import Button from "@/components/ui/Button";
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -20,22 +21,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     title: `${post.title} — ConnectXeo Blog`,
     description: post.excerpt,
   };
-}
-
-const TAG_COLOURS: Record<string, string> = {
-  AI: "bg-violet-950/60 text-violet-300 border-violet-700/40",
-  "Agentic AI": "bg-violet-950/60 text-violet-300 border-violet-700/40",
-  Automation: "bg-blue-950/60 text-blue-300 border-blue-700/40",
-  Business: "bg-emerald-950/60 text-emerald-300 border-emerald-700/40",
-  "Voice AI": "bg-rose-950/60 text-rose-300 border-rose-700/40",
-  LLM: "bg-amber-950/60 text-amber-300 border-amber-700/40",
-  Engineering: "bg-cyan-950/60 text-cyan-300 border-cyan-700/40",
-  Tutorial: "bg-indigo-950/60 text-indigo-300 border-indigo-700/40",
-  Productivity: "bg-teal-950/60 text-teal-300 border-teal-700/40",
-};
-
-function tagClass(tag: string) {
-  return TAG_COLOURS[tag] ?? "bg-slate-800 text-slate-300 border-slate-700/40";
 }
 
 function formatDate(dateStr: string) {
@@ -57,18 +42,17 @@ export default async function BlogPostPage({ params }: Props) {
   const htmlContent = markdownToHtml(post.content);
 
   return (
-    <div className="min-h-screen bg-slate-950 text-white">
-      {/* Ambient glow */}
-      <div className="fixed inset-0 pointer-events-none overflow-hidden">
-        <div className="absolute top-20 left-1/3 w-[500px] h-[400px] bg-violet-600/8 rounded-full blur-3xl" />
-        <div className="absolute bottom-20 right-1/4 w-[300px] h-[300px] bg-blue-600/6 rounded-full blur-3xl" />
-      </div>
-
+    <>
       <div className="relative max-w-3xl mx-auto px-6 py-16">
+        {/* Ambient glow */}
+        <div className="fixed inset-0 pointer-events-none overflow-hidden -z-10">
+          <div className="absolute top-20 left-1/3 w-[500px] h-[400px] bg-primary/[0.08] rounded-full blur-3xl" />
+        </div>
+
         {/* Back link */}
         <Link
           href="/blog"
-          className="inline-flex items-center gap-2 text-slate-400 hover:text-violet-400 transition-colors text-sm mb-10 group"
+          className="inline-flex items-center gap-2 text-muted hover:text-primary transition-colors text-sm mb-10 group"
         >
           <svg
             className="w-4 h-4 group-hover:-translate-x-1 transition-transform"
@@ -76,12 +60,7 @@ export default async function BlogPostPage({ params }: Props) {
             viewBox="0 0 24 24"
             stroke="currentColor"
           >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M11 17l-5-5m0 0l5-5m-5 5h12"
-            />
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 17l-5-5m0 0l5-5m-5 5h12" />
           </svg>
           Back to Blog
         </Link>
@@ -91,7 +70,7 @@ export default async function BlogPostPage({ params }: Props) {
           {post.tags.map((tag) => (
             <span
               key={tag}
-              className={`text-xs font-medium px-2.5 py-1 rounded-full border ${tagClass(tag)}`}
+              className="text-xs font-medium px-2.5 py-1 rounded-full border border-border bg-card text-muted"
             >
               {tag}
             </span>
@@ -99,26 +78,26 @@ export default async function BlogPostPage({ params }: Props) {
         </div>
 
         {/* Title */}
-        <h1 className="text-3xl md:text-5xl font-bold tracking-tight text-white mb-6 leading-tight">
+        <h1 className="text-3xl md:text-5xl font-bold tracking-tight text-foreground mb-6 leading-tight" style={{ fontWeight: 510, letterSpacing: "-0.04em" }}>
           {post.title}
         </h1>
 
         {/* Author + date */}
-        <div className="flex items-center gap-4 pb-8 border-b border-slate-800 mb-8">
+        <div className="flex items-center gap-4 pb-8 border-b border-border mb-8">
           <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-full bg-gradient-to-br from-violet-500 to-blue-500 flex items-center justify-center text-sm font-bold text-white">
+            <div className="w-9 h-9 rounded-full bg-primary flex items-center justify-center text-sm font-bold text-white">
               {post.author.charAt(0)}
             </div>
             <div>
-              <div className="text-sm font-medium text-white">{post.author}</div>
-              <div className="text-xs text-slate-500">Founder, ConnectXeo</div>
+              <div className="text-sm font-medium text-foreground">{post.author}</div>
+              <div className="text-xs text-muted">Founder, ConnectXeo</div>
             </div>
           </div>
-          <div className="ml-auto text-sm text-slate-500">{formatDate(post.date)}</div>
+          <div className="ml-auto text-sm text-muted">{formatDate(post.date)}</div>
         </div>
 
         {/* Excerpt / lead */}
-        <p className="text-lg text-slate-300 leading-relaxed italic mb-8 pl-4 border-l-2 border-violet-600">
+        <p className="text-lg text-muted leading-relaxed italic mb-8 pl-4 border-l-2 border-primary">
           {post.excerpt}
         </p>
 
@@ -126,30 +105,16 @@ export default async function BlogPostPage({ params }: Props) {
         <article dangerouslySetInnerHTML={{ __html: htmlContent }} />
 
         {/* CTA */}
-        <div className="mt-16 bg-slate-900/60 border border-violet-700/30 rounded-2xl p-8 text-center">
-          <h3 className="text-xl font-bold text-white mb-3">
+        <div className="mt-16 bg-card border border-border rounded-2xl p-8 text-center" style={{ boxShadow: "rgba(255, 255, 255, 0.03) 0px 0px 0px 1px inset" }}>
+          <h3 className="text-xl font-bold text-foreground mb-3" style={{ fontWeight: 590 }}>
             Ready to put this into practice?
           </h3>
-          <p className="text-slate-400 mb-6 text-sm">
-            ConnectXeo builds custom AI and automation solutions. Let&apos;s talk about your use
-            case.
+          <p className="text-muted mb-6 text-sm">
+            ConnectXeo builds custom AI and automation solutions. Let&apos;s talk about your use case.
           </p>
-          <Link
-            href="/contact"
-            className="inline-flex items-center gap-2 bg-violet-600 hover:bg-violet-500 text-white font-semibold px-6 py-3 rounded-xl transition-colors"
-          >
-            Book a free call
-            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M13 7l5 5m0 0l-5 5m5-5H6"
-              />
-            </svg>
-          </Link>
+          <Button href="/contact">Book a free call</Button>
         </div>
       </div>
-    </div>
+    </>
   );
 }
