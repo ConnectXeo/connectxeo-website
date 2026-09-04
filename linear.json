@@ -1,0 +1,389 @@
+{
+    "url": "https://linear.app/",
+    "title": "Linear",
+    "description": "Purpose-built for planning and building products with AI agents.",
+    "scrapedAt": "2026-09-03T23:42:03.196Z",
+    "colors": {
+      "bg": "#08090a",
+      "bgSecondary": "#0f1011",
+      "text": "#f7f8f8",
+      "textSecondary": "#999999",
+      "primary": "#5e6ad2",
+      "secondary": "#f34e52",
+      "border": "#0f1011",
+      "palette": [
+        {
+          "hex": "#ffffff",
+          "role": "badge",
+          "count": 1,
+          "area": 845832,
+          "contrast": "dark"
+        },
+        {
+          "hex": "#0f1011",
+          "role": "block",
+          "count": 1,
+          "area": 619489,
+          "contrast": "light"
+        },
+        {
+          "hex": "#161718",
+          "role": "section",
+          "count": 1,
+          "area": 260316,
+          "contrast": "light"
+        },
+        {
+          "hex": "#5e6ad2",
+          "role": "block",
+          "count": 1,
+          "area": 53980,
+          "contrast": "light"
+        },
+        {
+          "hex": "#000000",
+          "role": "badge",
+          "count": 1,
+          "area": 3290,
+          "contrast": "light"
+        },
+        {
+          "hex": "#e5e5e6",
+          "role": "button",
+          "count": 1,
+          "area": 2334,
+          "contrast": "dark"
+        },
+        {
+          "hex": "#2e2e32",
+          "role": "badge",
+          "count": 1,
+          "area": 2113,
+          "contrast": "light"
+        },
+        {
+          "hex": "#6d78d5",
+          "role": "badge",
+          "count": 1,
+          "area": 1564,
+          "contrast": "light"
+        },
+        {
+          "hex": "#f34e52",
+          "role": "text-accent",
+          "count": 1,
+          "area": 200,
+          "contrast": "dark"
+        },
+        {
+          "hex": "#27a644",
+          "role": "text-accent",
+          "count": 1,
+          "area": 50,
+          "contrast": "light"
+        }
+      ]
+    },
+    "typography": {
+      "headingFont": {
+        "family": "\"Inter Variable\", \"SF Pro Display\", -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Oxygen, Ubuntu, Cantarell, \"Open Sans\", \"Helvetica Neue\", sans-serif",
+        "cleanFamily": "Inter Variable",
+        "weights": [
+          "510"
+        ],
+        "usedFor": "heading",
+        "fallback": "sans-serif"
+      },
+      "bodyFont": {
+        "family": "\"Inter Variable\", \"SF Pro Display\", -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Oxygen, Ubuntu, Cantarell, \"Open Sans\", \"Helvetica Neue\", sans-serif",
+        "cleanFamily": "Inter Variable",
+        "weights": [
+          "400"
+        ],
+        "usedFor": "body",
+        "fallback": "sans-serif"
+      },
+      "fontSizes": [
+        64,
+        48,
+        24,
+        20,
+        18,
+        16,
+        15,
+        14,
+        13.3333,
+        13
+      ],
+      "lineHeights": [],
+      "details": [
+        {
+          "role": "H1",
+          "size": 64,
+          "weight": "510",
+          "lineHeight": "64px",
+          "letterSpacing": "-1.408px",
+          "font": "Inter Variable"
+        },
+        {
+          "role": "H2",
+          "size": 48,
+          "weight": "510",
+          "lineHeight": "48px",
+          "letterSpacing": "-1.056px",
+          "font": "Inter Variable"
+        },
+        {
+          "role": "H3",
+          "size": 20,
+          "weight": "590",
+          "lineHeight": "26.6px",
+          "letterSpacing": "-0.24px",
+          "font": "Inter Variable"
+        },
+        {
+          "role": "H4",
+          "size": 16,
+          "weight": "590",
+          "lineHeight": "28px",
+          "letterSpacing": "normal",
+          "font": "Inter Variable"
+        },
+        {
+          "role": "Body",
+          "size": 15,
+          "weight": "400",
+          "lineHeight": "24px",
+          "letterSpacing": "-0.165px",
+          "font": "Inter Variable"
+        },
+        {
+          "role": "Code",
+          "size": 12,
+          "weight": "400",
+          "lineHeight": "20px",
+          "letterSpacing": "-0.182px",
+          "font": "Berkeley Mono"
+        }
+      ]
+    },
+    "spacing": {
+      "base": 8,
+      "common": [
+        {
+          "value": 8,
+          "count": 24,
+          "role": "element"
+        },
+        {
+          "value": 4,
+          "count": 5,
+          "role": "element"
+        },
+        {
+          "value": 1,
+          "count": 4,
+          "role": "element"
+        },
+        {
+          "value": 5,
+          "count": 3,
+          "role": "element"
+        },
+        {
+          "value": 24,
+          "count": 3,
+          "role": "card"
+        },
+        {
+          "value": 3,
+          "count": 2,
+          "role": "element"
+        },
+        {
+          "value": 6,
+          "count": 2,
+          "role": "element"
+        },
+        {
+          "value": 10,
+          "count": 2,
+          "role": "element"
+        }
+      ]
+    },
+    "borderRadius": [
+      {
+        "value": 8,
+        "count": 23,
+        "role": "button"
+      },
+      {
+        "value": 50,
+        "count": 22,
+        "role": "card"
+      },
+      {
+        "value": 9,
+        "count": 18,
+        "role": "button"
+      },
+      {
+        "value": 4,
+        "count": 13,
+        "role": "subtle"
+      },
+      {
+        "value": 12,
+        "count": 11,
+        "role": "button"
+      },
+      {
+        "value": 6,
+        "count": 9,
+        "role": "button"
+      }
+    ],
+    "shadows": [
+      {
+        "value": "rgba(0, 0, 0, 0.2) 0px 0px 12px 0px inset",
+        "count": 7,
+        "level": "mid"
+      },
+      {
+        "value": "rgba(255, 255, 255, 0.05) 0px 0px 0px 1px inset",
+        "count": 4,
+        "level": "low"
+      },
+      {
+        "value": "rgba(0, 0, 0, 0.2) 0px 0px 0px 1px",
+        "count": 4,
+        "level": "low"
+      },
+      {
+        "value": "rgba(0, 0, 0, 0) 0px 8px 2px 0px, rgba(0, 0, 0, 0.01) 0px 5px 2px 0px, rgba(0, 0, 0, 0.04) 0px 3px 2px 0px, rgba(0, 0, 0, 0.07) 0px 1px 1px 0px, rgba(0, 0, 0, 0.08) 0px 0px 1px 0px",
+        "count": 2,
+        "level": "low"
+      },
+      {
+        "value": "rgba(0, 0, 0, 0.06) 0px 4px 4px -1px, rgba(0, 0, 0, 0.12) 0px 1px 1px 0px",
+        "count": 2,
+        "level": "low"
+      },
+      {
+        "value": "rgb(35, 37, 42) 0px 0px 0px 1px inset",
+        "count": 2,
+        "level": "low"
+      },
+      {
+        "value": "rgba(0, 0, 0, 0.2) 0px 0px 0px 2px",
+        "count": 1,
+        "level": "low"
+      },
+      {
+        "value": "rgba(0, 0, 0, 0.25) 0px 2px 32px 0px",
+        "count": 1,
+        "level": "deep"
+      }
+    ],
+    "components": {
+      "primaryButton": {
+        "bg": "#ffffff",
+        "border": "",
+        "borderRadius": 8,
+        "color": "#d0d6e0",
+        "fontSize": 13,
+        "fontWeight": "510",
+        "paddingH": 7,
+        "paddingV": 0,
+        "variant": "filled"
+      },
+      "buttons": [
+        {
+          "bg": "transparent",
+          "border": "",
+          "borderRadius": 9999,
+          "color": "#8a8f98",
+          "fontSize": 13,
+          "fontWeight": "400",
+          "paddingH": 12,
+          "paddingV": 0,
+          "variant": "pill"
+        },
+        {
+          "bg": "transparent",
+          "border": "",
+          "borderRadius": 8,
+          "color": "#ffffff",
+          "fontSize": 13.3333,
+          "fontWeight": "400",
+          "paddingH": 4,
+          "paddingV": 0,
+          "variant": "ghost"
+        },
+        {
+          "bg": "transparent",
+          "border": "",
+          "borderRadius": 8,
+          "color": "#d0d6e0",
+          "fontSize": 13,
+          "fontWeight": "510",
+          "paddingH": 7,
+          "paddingV": 0,
+          "variant": "ghost"
+        },
+        {
+          "bg": "transparent",
+          "border": "",
+          "borderRadius": 8,
+          "color": "#62666d",
+          "fontSize": 12,
+          "fontWeight": "510",
+          "paddingH": 6,
+          "paddingV": 4,
+          "variant": "ghost"
+        },
+        {
+          "bg": "#ffffff",
+          "border": "",
+          "borderRadius": 8,
+          "color": "#d0d6e0",
+          "fontSize": 13,
+          "fontWeight": "510",
+          "paddingH": 7,
+          "paddingV": 0,
+          "variant": "filled"
+        },
+        {
+          "bg": "transparent",
+          "border": "",
+          "borderRadius": 9999,
+          "color": "#ffffff",
+          "fontSize": 13.3333,
+          "fontWeight": "400",
+          "paddingH": 0,
+          "paddingV": 0,
+          "variant": "pill"
+        }
+      ],
+      "card": {
+        "bg": "#161718",
+        "borderRadius": 6,
+        "padding": 11,
+        "shadow": "none"
+      }
+    },
+    "fontFaces": [],
+    "cssCustomProperties": [],
+    "tags": [
+      "dark",
+      "rounded",
+      "colorful",
+      "monospace",
+      "sans-serif"
+    ],
+    "mood": "High-contrast dark mode with vivid accents — feels modern, technical, and focused.",
+    "heroHeadline": "The product development system for teams and agentsThe product developmentsystem for teams and agentsThe product develop",
+    "heroSubtitle": "Purpose-built for planning and building products. Designed for the AI era.NewLoops →NewLoops →",
+    "isJapanese": false
+  }
