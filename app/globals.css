@@ -1,40 +1,167 @@
 @import "tailwindcss";
 
-/* ConnectXeo Design Tokens */
 :root {
-  --background: #FFFFFF;
-  --foreground: #171717;
-  --primary: #0062FF;
-  --accent: #3B82F6;
-  --muted: #6B7280;
-  --border: #E5E7EB;
-  --card: #F9FAFB;
+  --background: #08090a;
+  --background-secondary: #0f1011;
+  --foreground: #f7f8f8;
+  --foreground-secondary: #999999;
+  --primary: #5e6ad2;
+  --primary-hover: #6d78d5;
+  --secondary: #f34e52;
+  --muted: #999999;
+  --border: #1a1b1e;
+  --card: #161718;
+  --ring: #5e6ad2;
 }
 
-.dark {
-  --background: #0A0A0A;
-  --foreground: #EDEDED;
-  --primary: #0062FF;
-  --accent: #3B82F6;
-  --muted: #9CA3AF;
-  --border: #27272A;
-  --card: #18181B;
+.light {
+  --background: #fafafa;
+  --background-secondary: #f0f0f0;
+  --foreground: #08090a;
+  --foreground-secondary: #555;
+  --primary: #5e6ad2;
+  --primary-hover: #4f5bc3;
+  --secondary: #f34e52;
+  --muted: #6b7280;
+  --border: #e0e0e0;
+  --card: #ffffff;
+  --ring: #5e6ad2;
 }
 
 @theme inline {
   --color-background: var(--background);
+  --color-background-secondary: var(--background-secondary);
   --color-foreground: var(--foreground);
+  --color-foreground-secondary: var(--foreground-secondary);
   --color-primary: var(--primary);
-  --color-accent: var(--accent);
+  --color-primary-hover: var(--primary-hover);
+  --color-secondary: var(--secondary);
   --color-muted: var(--muted);
   --color-border: var(--border);
   --color-card: var(--card);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-ring: var(--ring);
+  --font-sans: "Inter", system-ui, -apple-system, sans-serif;
+  --font-mono: var(--font-geist-mono, ui-monospace, monospace);
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-sans, system-ui, -apple-system, sans-serif);
+  font-family: var(--font-sans);
+}
+
+::selection {
+  background: rgba(94, 106, 210, 0.3);
+  color: #f7f8f8;
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-up {
+  animation: fade-up 0.6s ease-out both;
+}
+
+.animate-fade-up-delay-1 {
+  animation: fade-up 0.6s ease-out 0.1s both;
+}
+
+.animate-fade-up-delay-2 {
+  animation: fade-up 0.6s ease-out 0.2s both;
+}
+
+.animate-fade-up-delay-3 {
+  animation: fade-up 0.6s ease-out 0.3s both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-fade-up,
+  .animate-fade-up-delay-1,
+  .animate-fade-up-delay-2,
+  .animate-fade-up-delay-3 {
+    animation: none;
+  }
+}
+
+/* Prose styling for blog articles */
+article h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-top: 2.5rem;
+  margin-bottom: 1rem;
+  color: var(--foreground);
+  letter-spacing: -0.02em;
+}
+article h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+  color: var(--foreground);
+}
+article p {
+  margin-bottom: 1rem;
+  line-height: 1.75;
+  color: var(--muted);
+}
+article ul,
+article ol {
+  margin-bottom: 1rem;
+  padding-left: 1.5rem;
+  color: var(--muted);
+}
+article li {
+  margin-bottom: 0.5rem;
+  line-height: 1.7;
+}
+article code {
+  background: var(--background-secondary);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 0.15em 0.4em;
+  font-size: 0.875em;
+}
+article pre {
+  background: var(--background-secondary);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1.25rem;
+  overflow-x: auto;
+  margin-bottom: 1.5rem;
+}
+article pre code {
+  background: none;
+  border: none;
+  padding: 0;
+}
+article blockquote {
+  border-left: 3px solid var(--primary);
+  padding-left: 1rem;
+  margin: 1.5rem 0;
+  color: var(--foreground-secondary);
+  font-style: italic;
+}
+article a {
+  color: var(--primary);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+article a:hover {
+  color: var(--primary-hover);
+}
+article strong {
+  color: var(--foreground);
+  font-weight: 600;
 }
