@@ -95,6 +95,36 @@ body {
   }
 }
 
+/* Hermes voice orb */
+@keyframes orbIdle {
+  0%,
+  100% {
+    transform: translateY(0) scale(1);
+  }
+  50% {
+    transform: translateY(-6px) scale(1.02);
+  }
+}
+
+@keyframes orbBlink {
+  0%,
+  100% {
+    opacity: 1;
+    filter: brightness(1);
+  }
+  50% {
+    opacity: 0.72;
+    filter: brightness(1.35);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [class*="animate-[orbIdle"],
+  [class*="animate-[orbBlink"] {
+    animation: none;
+  }
+}
+
 /* Prose styling for blog articles */
 article h2 {
   font-size: 1.5rem;

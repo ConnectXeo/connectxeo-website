@@ -14,14 +14,15 @@
  */
 
 import { useCallback } from "react";
+import { useRouter } from "next/navigation";
 import HermesOrb from "@/components/voice/HermesOrb";
 import WaveformVisualizer from "@/components/voice/WaveformVisualizer";
-import MicButton from "@/components/voice/MicButton";
 import AgentOrgMap from "@/components/voice/AgentOrgMap";
 import TranscriptPanel from "@/components/voice/TranscriptPanel";
 import { useLiveKitVoice } from "@/hooks/useLiveKitVoice";
 
 export default function VoicePage() {
+  const router = useRouter();
   const {
     sessionState,
     messages,
@@ -41,6 +42,14 @@ export default function VoicePage() {
     }
   }, [sessionState, connect, disconnect]);
 
+  // ── Exit — end any active session, return to the marketing site ────────
+  const handleExit = useCallback(() => {
+    if (sessionState !== "idle" && sessionState !== "error") {
+      disconnect();
+    }
+    router.push("/");
+  }, [sessionState, disconnect, router]);
+
   // Map session state to orb/waveform visual state
   const orbState =
     sessionState === "listening"
@@ -54,13 +63,39 @@ export default function VoicePage() {
   const isError = sessionState === "error";
 
   return (
-    <div className="voice-os-root">
-      {/* ── Grid scanline overlay ──────────────────────────────────────────── */}
-      <div className="voice-scanlines" aria-hidden="true" />
-
+    <div className="fixed inset-0 flex flex-col bg-black overflow-y-auto">
       {/* ── Top bar ───────────────────────────────────────────────────────── */}
-      <header className="voice-topbar">
+      <header className="flex-shrink-0 flex items-center justify-between px-4 sm:px-6 py-4">
         <div className="flex items-center gap-3">
+          {/* Exit — end session and return to the marketing site */}
+          <button
+            type="button"
+            onClick={handleExit}
+            aria-label="Exit Agentic OS"
+            className={[
+              "inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full",
+              "border border-gray-700 bg-gray-900/60",
+              "text-xs font-mono text-gray-400 hover:text-white hover:border-gray-500",
+              "backdrop-blur-sm transition-colors cursor-pointer",
+              "focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400/60",
+            ].join(" ")}
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+              className="w-3.5 h-3.5"
+              aria-hidden="true"
+            >
+              <path
+                fillRule="evenodd"
+                d="M15.707 4.293a1 1 0 010 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 011.414-1.414L10 8.586l4.293-4.293a1 1 0 011.414 0z"
+                clipRule="evenodd"
+              />
+            </svg>
+            Exit
+          </button>
+
           {/* ConnectXeo wordmark */}
           <span className="text-white font-bold text-lg tracking-tight">
             Connect<span className="text-cyan-400">Xeo</span>
@@ -111,40 +146,49 @@ export default function VoicePage() {
       </header>
 
       {/* ── Main content ──────────────────────────────────────────────────── */}
-      <main className="voice-main">
+      <main className="flex-1 flex flex-col lg:flex-row gap-8 px-4 sm:px-6 pb-6">
         {/* Left pad (balance) */}
         <div className="hidden lg:block w-56 flex-shrink-0" />
 
         {/* ── Center stage ──────────────────────────────────────────────── */}
-        <section className="voice-center">
-          {/* Hermes Orb */}
-          <HermesOrb state={orbState} />
-
-          {/* Waveform */}
-          <div className="mt-14 w-full max-w-md">
-            <WaveformVisualizer state={orbState} />
-          </div>
-
-          {/* Mic button */}
-          <div className="mt-6 flex flex-col items-center gap-3">
-            <MicButton
-              state={orbState}
+        <section className="flex-1 flex flex-col items-center">
+          {/* Orb fills the viewport below the header — the OS's hero element */}
+          <div className="flex flex-col items-center justify-center min-h-[65vh] sm:min-h-[70vh] w-full">
+            {/* Hermes Orb — click to start/stop the session */}
+            <button
+              type="button"
               onClick={handleMicClick}
               disabled={isConnecting}
-            />
-            <p className="text-xs font-mono text-gray-600 text-center mt-2">
+              aria-label={
+                isActive ? "Stop — click to end session" : "Click to talk to Hermes"
+              }
+              className={[
+                "cursor-pointer bg-transparent border-0 p-0 rounded-full",
+                "focus:outline-none focus-visible:ring-4 focus-visible:ring-cyan-400/60",
+                isConnecting ? "opacity-60 cursor-not-allowed" : "",
+              ].join(" ")}
+            >
+              <HermesOrb state={orbState} />
+            </button>
+
+            <p className="mt-8 text-xs font-mono text-gray-600 text-center px-4">
               {isConnecting
                 ? "Connecting to Hermes..."
                 : isError
-                ? error ?? "Connection failed — click mic to retry"
+                ? error ?? "Connection failed — click orb to retry"
                 : isActive
-                ? "Click to end session"
-                : "Click mic to talk to Hermes"}
+                ? "Click orb to end session"
+                : "Click orb to talk to Hermes"}
             </p>
+
+            {/* Waveform */}
+            <div className="mt-6 w-full max-w-md px-4">
+              <WaveformVisualizer state={orbState} />
+            </div>
           </div>
 
           {/* Transcript */}
-          <div className="mt-8 w-full">
+          <div className="mt-8 w-full max-w-2xl px-4">
             <div className="flex items-center gap-2 mb-2 px-1">
               <span className="text-[10px] font-mono text-gray-600 uppercase tracking-widest">
                 Transcript
@@ -156,13 +200,13 @@ export default function VoicePage() {
         </section>
 
         {/* ── Agent Org Map sidebar ─────────────────────────────────────── */}
-        <aside className="voice-sidebar">
+        <aside className="w-full lg:w-56 flex-shrink-0">
           <AgentOrgMap activeAgents={activeAgents} />
         </aside>
       </main>
 
       {/* ── Footer bar ────────────────────────────────────────────────────── */}
-      <footer className="voice-footer">
+      <footer className="flex-shrink-0 flex items-center justify-between px-4 sm:px-6 py-3 border-t border-gray-900">
         <span className="text-gray-700 text-[10px] font-mono">
           © {new Date().getFullYear()} ConnectXeo · Hermes Agentic OS v0.1
         </span>
