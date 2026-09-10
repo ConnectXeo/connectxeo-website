@@ -1,12 +1,11 @@
 import type { Metadata } from "next";
-import VoiceLeadPanel from "@/components/contact/VoiceLeadPanel";
 import Badge from "@/components/ui/Badge";
 import Card from "@/components/ui/Card";
 
 export const metadata: Metadata = {
   title: "Contact Us — ConnectXeo",
   description:
-    "Talk to ConnectXeo by voice. Maya, our lead assistant, takes a few details so the team can follow up on your AI, automation, or web project.",
+    "Talk to ConnectXeo by voice with Maya, our live assistant, or email admin@connectxeo.com about your AI, automation, or web project.",
 };
 
 const CONTACT_CHANNELS = [
@@ -48,12 +47,16 @@ const CONTACT_CHANNELS = [
 ];
 
 const RESPONSE_ITEMS = [
-  { title: "Voice-first", desc: "Talk to Maya — no long forms" },
+  { title: "Voice-first", desc: "Talk to Maya via the button on this site" },
   { title: "Fast follow-up", desc: "We reply within one business day" },
   { title: "Confidential", desc: "Your idea and data stay private" },
 ];
 
 export default function ContactPage() {
+  const embedConfigured = Boolean(
+    process.env.NEXT_PUBLIC_LIVEKIT_EMBED_AGENT_ID?.trim()
+  );
+
   return (
     <>
       <section className="relative py-24 overflow-hidden border-b border-border">
@@ -71,8 +74,8 @@ export default function ContactPage() {
             Start a <span className="text-primary">conversation</span>
           </h1>
           <p className="mt-6 text-lg text-muted max-w-xl mx-auto animate-fade-up-delay-2">
-            Hit Let&apos;s talk and speak with Maya. She collects what we need so
-            the ConnectXeo team can follow up — no form required.
+            Speak with Maya, our live ConnectXeo assistant. She takes a few
+            details so the team can follow up — no form required.
           </p>
         </div>
       </section>
@@ -162,13 +165,47 @@ export default function ContactPage() {
                 className="text-xl font-bold text-foreground mb-2"
                 style={{ fontWeight: 590 }}
               >
-                Voice with Maya
+                Talk to Maya
               </h2>
               <p className="text-sm text-muted mb-6">
-                One click starts a live call. Share your name, company, and what
-                you need — we handle the rest.
+                Use the voice button on this page (usually bottom-right). Allow
+                microphone access, then speak naturally — Maya will collect what
+                we need and our team follows up by email.
               </p>
-              <VoiceLeadPanel />
+
+              <div className="rounded-2xl border border-border bg-background/60 p-8 text-center space-y-4">
+                <div className="mx-auto w-16 h-16 rounded-full bg-primary/15 border border-primary/30 flex items-center justify-center">
+                  <svg
+                    className="w-7 h-7 text-primary"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={1.75}
+                      d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"
+                    />
+                  </svg>
+                </div>
+                <p className="text-base font-semibold text-foreground">
+                  {embedConfigured
+                    ? "Look for the Maya launcher"
+                    : "Voice launcher almost ready"}
+                </p>
+                <p className="text-sm text-muted max-w-md mx-auto leading-relaxed">
+                  {embedConfigured
+                    ? "Tap the floating button, start the call, and talk. Prefer writing? Email admin@connectxeo.com."
+                    : "The LiveKit embed agent id is not set on this deploy yet. You can still reach us at admin@connectxeo.com."}
+                </p>
+                <a
+                  href="mailto:admin@connectxeo.com"
+                  className="inline-flex items-center justify-center gap-2 text-sm font-semibold text-primary hover:underline"
+                >
+                  admin@connectxeo.com
+                </a>
+              </div>
             </Card>
           </div>
         </div>

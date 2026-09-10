@@ -4,6 +4,7 @@ import { Geist_Mono } from "next/font/google";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import { Providers } from "./providers";
 import SiteChrome from "@/components/SiteChrome";
+import LiveKitEmbed from "@/components/LiveKitEmbed";
 import "./globals.css";
 
 const inter = Inter({
@@ -146,6 +147,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <SiteChrome>{children}</SiteChrome>
         </Providers>
         <GoogleAnalytics gaId="G-57MFPSSX9Y" />
+        {/* LiveKit Cloud embed: classic script only (see LiveKitEmbed). */}
+        <LiveKitEmbed />
       </body>
     </html>
   );
