@@ -2,7 +2,9 @@ import Database from "better-sqlite3";
 import fs from "fs";
 import path from "path";
 
-const DATA_DIR = path.join(process.cwd(), "data");
+// Vercel's project directory is read-only at runtime — SQLite must live in /tmp there.
+// On a normal server (or locally), use ./data so the database persists.
+const DATA_DIR = process.env.VERCEL ? "/tmp" : path.join(process.cwd(), "data");
 const DB_PATH = path.join(DATA_DIR, "blog.db");
 
 let db: Database.Database | null = null;
