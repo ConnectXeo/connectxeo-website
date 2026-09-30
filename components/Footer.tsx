@@ -1,4 +1,7 @@
+"use client";
+
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 const SERVICES_LINKS = [
   { label: "AI/ML Solutions", href: "/services/ai-ml" },
@@ -11,12 +14,13 @@ const SERVICES_LINKS = [
 
 const COMPANY_LINKS = [
   { label: "About", href: "/about" },
-  { label: "Team", href: "/team" },
   { label: "Blog", href: "/blog" },
   { label: "Contact", href: "/contact" },
 ];
 
 export default function Footer() {
+  const pathname = usePathname();
+  if (pathname.startsWith("/admin")) return null;
   const currentYear = new Date().getFullYear();
 
   return (
