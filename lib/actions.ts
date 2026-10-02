@@ -2,7 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 import { isAdmin } from "@/lib/auth";
-import { createPost, updatePost, deletePost, slugExists, getPostById } from "@/lib/db";
+import { createPost, updatePost, deletePost, slugExists, getPostById } from "@/lib/db-pg";
 
 export interface PostInput {
   slug: string;
@@ -48,13 +48,13 @@ export async function savePost(prevState: { error: string | null }, formData: Fo
 
   if (!slug) return { error: "Slug is required." };
   if (!title) return { error: "Title is required." };
-  if (slugExists(slug, id)) return { error: "Another post already uses this slug." };
+  if (await slugExists(slug, id)) return { error: "Another post already uses this slug." };
 
   const data = { slug, title, excerpt, content, tags, author, cover, published };
-  if (id && getPostById(id)) {
-    updatePost(id, data);
+  if (id && (await getPostById(id))) {
+    await updatePost(id, data);
   } else {
-    createPost(data);
+    await createPost(data);
   }
   revalidatePath("/blog");
   revalidatePath("/blog/[slug]");
@@ -64,7 +64,7 @@ export async function savePost(prevState: { error: string | null }, formData: Fo
 
 export async function deletePostAction(id: number) {
   if (!(await isAdmin())) return;
-  deletePost(id);
+  await deletePost(id);
   revalidatePath("/blog");
   revalidatePath("/admin");
 }

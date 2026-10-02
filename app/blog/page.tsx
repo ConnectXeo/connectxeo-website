@@ -22,8 +22,8 @@ function formatDate(dateStr: string) {
   return new Date(dateStr).toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" });
 }
 
-export default function BlogPage() {
-  const posts = getAllPostsMeta();
+export default async function BlogPage() {
+  const posts = await getAllPostsMeta();
 
   return (
     <main className="overflow-x-hidden w-full max-w-full">

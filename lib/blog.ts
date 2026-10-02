@@ -1,10 +1,10 @@
 /**
- * Blog utilities — backed by SQLite (see lib/db.ts).
+ * Blog utilities — backed by PostgreSQL (see lib/db-pg.ts).
  * The existing MDX posts in /content/blog/ are seeded into the database
  * automatically on first access.
  */
 
-import { getAllPosts, getPublishedPosts, getPostBySlug as getPostRowBySlug, type PostRow } from "./db";
+import { getPublishedPosts, getPostBySlug as getPostRowBySlug, type PostRow } from "./db-pg";
 
 export interface PostFrontmatter {
   title: string;
@@ -40,19 +40,21 @@ function rowToPost(row: PostRow): Post {
   };
 }
 
-export function getAllSlugs(): string[] {
-  return getPublishedPosts().map((p) => p.slug);
+export async function getAllSlugs(): Promise<string[]> {
+  const posts = await getPublishedPosts();
+  return posts.map((p) => p.slug);
 }
 
-export function getAllPostsMeta(): PostMeta[] {
-  return getPublishedPosts().map((p) => {
-    const { content: _content, ...meta } = rowToPost(p);
+export async function getAllPostsMeta(): Promise<PostMeta[]> {
+  const posts = await getPublishedPosts();
+  return posts.map((p) => {
+    const { content, ...meta } = rowToPost(p);
     return meta;
   });
 }
 
-export function getPostBySlug(slug: string): Post | null {
-  const row = getPostRowBySlug(slug);
-  if (!row || row.published !== 1) return null;
+export async function getPostBySlug(slug: string): Promise<Post | null> {
+  const row = await getPostRowBySlug(slug);
+  if (!row || !row.published) return null;
   return rowToPost(row);
 }

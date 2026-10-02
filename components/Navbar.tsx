@@ -19,13 +19,13 @@ export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
-  if (pathname.startsWith("/admin")) return null;
-
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
+  if (pathname.startsWith("/admin")) return null;
 
   return (
     <header className="fixed top-4 left-1/2 z-50 w-full max-w-5xl -translate-x-1/2 px-4 sm:top-6">

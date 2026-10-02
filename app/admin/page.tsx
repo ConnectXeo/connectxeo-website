@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { redirect } from "next/navigation";
 import { isAdmin } from "@/lib/auth";
-import { getAllPosts } from "@/lib/db";
+import { getAllPosts } from "@/lib/db-pg";
 import AdminClient from "./AdminClient";
 
 export const metadata: Metadata = {
@@ -13,6 +13,6 @@ export const dynamic = "force-dynamic";
 
 export default async function AdminPage() {
   if (!(await isAdmin())) redirect("/admin/login");
-  const posts = getAllPosts();
+  const posts = await getAllPosts();
   return <AdminClient posts={posts} />;
 }

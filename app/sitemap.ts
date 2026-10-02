@@ -3,7 +3,7 @@ import { getAllSlugs } from "@/lib/blog";
 
 const BASE_URL = "https://www.connectxeo.com";
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const now = new Date();
 
   const staticPages: MetadataRoute.Sitemap = [
@@ -23,7 +23,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE_URL}/terms`, lastModified: now, changeFrequency: "yearly", priority: 0.3 },
   ];
 
-  const blogPages: MetadataRoute.Sitemap = getAllSlugs().map((slug) => ({
+  const slugs = await getAllSlugs();
+  const blogPages: MetadataRoute.Sitemap = slugs.map((slug: string) => ({
     url: `${BASE_URL}/blog/${slug}`,
     lastModified: now,
     changeFrequency: "monthly" as const,

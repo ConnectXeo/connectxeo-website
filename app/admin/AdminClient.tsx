@@ -6,7 +6,7 @@ import { gsap } from "gsap";
 import { useActionState } from "react";
 import { savePost, deletePostAction } from "@/lib/actions";
 import { markdownToHtml } from "@/lib/markdown";
-import type { PostRow } from "@/lib/db";
+import type { PostRow } from "@/lib/db-pg";
 
 const COVERS = [
   { key: "neural", label: "Neural" },
@@ -35,7 +35,7 @@ function readingTime(content: string) {
   return `${Math.max(1, Math.round(words / 200))} min read`;
 }
 
-function CoverArt({ cover, title, large }: { cover: string; title: string; large?: boolean }) {
+function CoverArt({ cover, title: _title, large }: { cover: string; title: string; large?: boolean }) {
   return (
     <div
       className={`relative flex items-center justify-center overflow-hidden border border-border bg-background-secondary ${
@@ -72,8 +72,8 @@ export default function AdminClient({ posts }: { posts: PostRow[] }) {
 
   const filtered = useMemo(() => {
     return posts.filter((p) => {
-      if (filter === "published" && p.published !== 1) return false;
-      if (filter === "draft" && p.published !== 0) return false;
+      if (filter === "published" && !p.published) return false;
+      if (filter === "draft" && p.published) return false;
       if (query) {
         const q = query.toLowerCase();
         return (
@@ -342,7 +342,7 @@ function Editor({
   const [tags, setTags] = useState(post ? JSON.parse(post.tags || "[]").join(", ") : "");
   const [cover, setCover] = useState(post?.cover ?? "neural");
   const [content, setContent] = useState(post?.content ?? "");
-  const [published, setPublished] = useState(post ? post.published === 1 : false);
+  const [published, setPublished] = useState(post ? post.published : false);
   const [view, setView] = useState<"write" | "preview">("write");
   const [state, formAction, pending] = useActionState(savePost, { error: null });
   const submitted = useRef(false);
