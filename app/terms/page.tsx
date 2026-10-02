@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import Badge from "@/components/ui/Badge";
-import Button from "@/components/ui/Button";
+import { Badge } from "@/components/ui/Badge";
+import { Button } from "@/components/ui/Button";
 
 export const metadata: Metadata = {
   title: "Terms of Service — ConnectXeo",

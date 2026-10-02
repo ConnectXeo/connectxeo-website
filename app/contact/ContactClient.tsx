@@ -110,19 +110,15 @@ export default function ContactClient() {
     e.preventDefault();
     setStatus("sending");
     try {
-      const res = await fetch("/api/leads", {
+      const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          results: {
-            full_name: form.name,
-            email: form.email,
-            company_name: form.company,
-            primary_service: form.service,
-            need_detail: form.details,
-            timeline: form.timeline,
-            source: "website_contact_form",
-          },
+          name: form.name,
+          email: form.email,
+          company: form.company,
+          subject: `${form.service} - ${form.timeline}`,
+          message: form.details,
         }),
       });
       if (!res.ok) throw new Error();
