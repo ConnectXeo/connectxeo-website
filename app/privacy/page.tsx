@@ -156,8 +156,12 @@ export default function PrivacyPage() {
         </div>
 
         <div className="mt-16 pt-8 border-t border-border flex flex-col sm:flex-row gap-4">
-          <Button href="/terms" variant="secondary" className="flex-1 text-center">View Terms of Service</Button>
-          <Button href="/contact" className="flex-1 text-center">Contact us about privacy</Button>
+          <Button variant="secondary" className="flex-1 text-center">
+  View Terms of Service
+</Button>
+<Button className="flex-1 text-center">
+  Contact us about privacy
+</Button>
         </div>
       </div>
     </>

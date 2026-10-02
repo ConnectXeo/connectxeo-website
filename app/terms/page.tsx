@@ -147,8 +147,8 @@ export default function TermsPage() {
         </div>
 
         <div className="mt-16 pt-8 border-t border-border flex flex-col sm:flex-row gap-4">
-          <Button href="/privacy" variant="secondary" className="flex-1 text-center">Privacy Policy</Button>
-          <Button href="/contact" className="flex-1 text-center">Questions? Contact us</Button>
+          <Button variant="secondary" className="flex-1 text-center">Privacy Policy</Button>
+<Button className="flex-1 text-center">Questions? Contact us</Button>
         </div>
       </div>
     </>
