@@ -6,6 +6,7 @@ import { gsap } from "gsap";
 import { useActionState } from "react";
 import { savePost, deletePostAction } from "@/lib/actions";
 import { markdownToHtml } from "@/lib/markdown";
+import { Button } from "@/components/ui/Button";
 import type { PostRow } from "@/lib/db-pg";
 
 const COVERS = [
@@ -93,15 +94,9 @@ export default function AdminClient({ posts }: { posts: PostRow[] }) {
     gsap.fromTo(panel, { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" });
   }, [editing]);
 
-  const logout = async () => {
-    await fetch("/api/admin/logout", { method: "POST" });
-    router.replace("/admin/login");
-    router.refresh();
-  };
-
   if (editing !== null) {
     return (
-      <main ref={panelRef} className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
+      <div ref={panelRef}>
         <div className="mb-8 flex flex-wrap items-center justify-between gap-4">
           <button
             onClick={() => setEditing(null)}
@@ -124,44 +119,25 @@ export default function AdminClient({ posts }: { posts: PostRow[] }) {
             router.refresh();
           }}
         />
-      </main>
+      </div>
     );
   }
 
   return (
-    <main className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
+    <div>
       {/* Header */}
       <div className="mb-10 flex flex-wrap items-center justify-between gap-4">
         <div>
-          <p className="font-mono text-[11px] font-medium uppercase tracking-[0.35em] text-primary">
-            ConnectXeo Admin
-          </p>
-          <h1 className="mt-2 text-3xl font-bold tracking-tight text-foreground" style={{ fontWeight: 700 }}>
-            Blog posts
+          <h1 className="text-2xl font-bold tracking-tight text-foreground">
+            Blog Posts
           </h1>
+          <p className="mt-1 text-sm text-muted-foreground">
+            Create and manage your blog content
+          </p>
         </div>
-        <div className="flex items-center gap-3">
-          <a
-            href="/blog"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="rounded-full border border-border px-5 py-2.5 text-sm font-semibold text-muted transition-colors hover:border-primary hover:text-primary"
-          >
-            View blog
-          </a>
-          <button
-            onClick={logout}
-            className="rounded-full border border-border px-5 py-2.5 text-sm font-semibold text-muted transition-colors hover:border-secondary hover:text-secondary"
-          >
-            Log out
-          </button>
-          <button
-            onClick={() => setEditing("new")}
-            className="rounded-full bg-foreground px-6 py-2.5 text-sm font-semibold text-background transition-opacity hover:opacity-85"
-          >
-            + New post
-          </button>
-        </div>
+        <Button onClick={() => setEditing("new")}>
+          + New post
+        </Button>
       </div>
 
       {/* Toolbar: search + filters */}
@@ -324,7 +300,7 @@ export default function AdminClient({ posts }: { posts: PostRow[] }) {
           })}
         </div>
       )}
-    </main>
+    </div>
   );
 }
 
@@ -496,3 +472,4 @@ function Editor({
     </div>
   );
 }
+
