@@ -19,6 +19,7 @@ interface ToastState {
   title?: React.ReactNode;
   description?: React.ReactNode;
   action?: ToastActionElement;
+  variant?: "default" | "destructive" | "success";
   open: boolean;
   onOpenChange?: (open: boolean) => void;
 }
