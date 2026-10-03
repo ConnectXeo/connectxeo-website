@@ -1,10 +1,12 @@
-/**
- * LiveKit Cloud Agent Embed Widget.
- * Must be a classic <script> in the initial HTML (not next/script module inject).
- * Set NEXT_PUBLIC_LIVEKIT_EMBED_AGENT_ID to the dashboard agent id (CA_...).
- * Enable Embed + allowed origins in LiveKit Cloud for connectxeo.com.
- */
+"use client";
+
+import { usePathname } from "next/navigation";
+
 export default function LiveKitEmbed() {
+  const pathname = usePathname();
+
+  if (pathname.startsWith("/admin")) return null;
+
   const agentId = process.env.NEXT_PUBLIC_LIVEKIT_EMBED_AGENT_ID?.trim();
   if (!agentId) return null;
 
@@ -14,8 +16,6 @@ export default function LiveKitEmbed() {
   });
 
   return (
-    // LiveKit requires a classic script tag with data-lk-* attributes.
-    // eslint-disable-next-line @next/next/no-sync-scripts
     <script
       src="https://cloud.livekit.io/embed-popup.js"
       data-lk-agent={agentId}
