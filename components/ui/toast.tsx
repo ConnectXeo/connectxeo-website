@@ -3,9 +3,13 @@
 import * as React from "react";
 import { cn } from "@/lib/utils";
 
+interface ToastProps extends React.HTMLAttributes<HTMLDivElement> {
+  variant?: "default" | "destructive" | "success";
+}
+
 const ToastViewport = React.forwardRef<
-  React.ElementRef<typeof React>,
-  React.HTMLAttributes<HTMLDivElement>
+  HTMLDivElement,
+  ToastProps
 >(({ className, children, ...props }, ref) => (
   <div
     ref={ref}
@@ -27,8 +31,8 @@ const toastVariants = {
 } as const;
 
 const Toast = React.forwardRef<
-  React.ElementRef<typeof React>,
-  React.HTMLAttributes<HTMLDivElement>
+  HTMLDivElement,
+  ToastProps
 >(({ className, variant = "default", ...props }, ref) => {
   return (
     <div
@@ -45,7 +49,7 @@ const Toast = React.forwardRef<
 Toast.displayName = "Toast";
 
 const ToastTitle = React.forwardRef<
-  React.ElementRef<typeof React>,
+  HTMLHeadingElement,
   React.HTMLAttributes<HTMLHeadingElement>
 >(({ className, ...props }, ref) => {
   return <h3 ref={ref} className={cn("text-sm font-semibold", className)} {...props} />;
@@ -53,7 +57,7 @@ const ToastTitle = React.forwardRef<
 ToastTitle.displayName = "ToastTitle";
 
 const ToastDescription = React.forwardRef<
-  React.ElementRef<typeof React>,
+  HTMLParagraphElement,
   React.HTMLAttributes<HTMLParagraphElement>
 >(({ className, ...props }, ref) => {
   return <p ref={ref} className={cn("text-sm opacity-90", className)} {...props} />;
@@ -61,7 +65,7 @@ const ToastDescription = React.forwardRef<
 ToastDescription.displayName = "ToastDescription";
 
 const ToastClose = React.forwardRef<
-  React.ElementRef<typeof React>,
+  HTMLButtonElement,
   React.HTMLAttributes<HTMLButtonElement>
 >(({ className, ...props }, ref) => {
   return (
