@@ -339,6 +339,7 @@ export async function createContact(data: {
   message: string;
 }): Promise<ContactRow> {
   const pool = getPool();
+  await initializeDatabase();
   const now = new Date().toISOString();
   const result = await pool.query(
     `INSERT INTO contacts (name, email, company, subject, message, status, created_at, updated_at)
@@ -351,12 +352,14 @@ export async function createContact(data: {
 
 export async function getAllContacts(): Promise<ContactRow[]> {
   const pool = getPool();
+  await initializeDatabase();
   const result = await pool.query("SELECT * FROM contacts ORDER BY created_at DESC");
   return result.rows.map(mapContactRow);
 }
 
 export async function getContactById(id: number): Promise<ContactRow | null> {
   const pool = getPool();
+  await initializeDatabase();
   const result = await pool.query("SELECT * FROM contacts WHERE id = $1", [id]);
   return result.rows.length > 0 ? mapContactRow(result.rows[0]) : null;
 }
@@ -370,6 +373,7 @@ export async function updateContact(
   }
 ): Promise<ContactRow> {
   const pool = getPool();
+  await initializeDatabase();
   const updates: string[] = [];
   const values: any[] = [];
   let paramIndex = 1;
