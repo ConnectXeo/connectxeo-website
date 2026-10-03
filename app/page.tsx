@@ -365,19 +365,19 @@ export default function HomePage() {
             className="hero-reveal mx-auto mt-8 max-w-6xl text-[clamp(2.9rem,6.4vw,6.2rem)] font-bold leading-[1.04] tracking-[-0.03em] text-foreground"
             style={{ fontWeight: 700 }}
           >
-            <span className="block">Intelligence that moves</span>
+            <span className="block">We build AI that</span>
             <span className="block">
-              business{" "}
+              works{" "}
               <span className="mx-[0.12em] inline-block h-[0.68em] w-[2.4em] overflow-hidden rounded-full align-[-0.06em] ring-1 ring-border">
                 <HeroPill />
               </span>{" "}
-              forward
+              as hard as you do
             </span>
           </h1>
 
           <p className="hero-reveal mx-auto mt-8 max-w-2xl text-base leading-8 text-muted sm:text-lg">
-            ConnectXeo designs, builds, and ships end-to-end AI systems, automation, and
-            cloud infrastructure for companies that refuse to move slow.
+            From custom models to voice agents and full-stack automation — we ship
+            production-grade AI systems that drive real business outcomes.
           </p>
 
           <div className="hero-reveal mt-12 flex flex-col items-center justify-center gap-4 sm:flex-row">
